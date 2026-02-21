@@ -11,6 +11,7 @@
 <meta name="apple-mobile-web-app-title" content="Cantina">
 <link rel="apple-touch-icon" href="icon-192.png">
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
 <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -18,7 +19,7 @@
 <!-- HEADER + TABS -->
 <div class="header">
   <div class="header-top">
-    <div class="logo">🏪</div>
+    <div class="logo"><i class="fa-solid fa-store"></i></div>
     <div class="titulo-wrap">
       <h1>Mi Cantina</h1>
       <p>SISTEMA DE COBROS</p>
@@ -26,13 +27,13 @@
   </div>
   <div class="tabs">
     <div class="tab activo" onclick="irA('cobro')">
-      <span class="tab-icon">🛒</span>Cobrar
+      <i class="fa-solid fa-basket-shopping tab-icon"></i>Cobrar
     </div>
     <div class="tab" onclick="irA('historial')">
-      <span class="tab-icon">📋</span>Historial
+      <i class="fa-solid fa-clock-rotate-left tab-icon"></i>Historial
     </div>
     <div class="tab" onclick="irA('caja')">
-      <span class="tab-icon">💰</span>Caja
+      <i class="fa-solid fa-cash-register tab-icon"></i>Caja
     </div>
   </div>
 </div>
@@ -42,7 +43,7 @@
 
   <div class="sec-header">
     <span class="sec-titulo">Precios rápidos</span>
-    <button class="btn-editar-toggle" id="btn-editar-precios" onclick="toggleEditarPrecios()">✏️ Editar</button>
+    <button class="btn-editar-toggle" id="btn-editar-precios" onclick="toggleEditarPrecios()"><i class="fa-solid fa-pen-to-square"></i> Editar</button>
   </div>
   <div class="precios-grid" id="precios-grid"></div>
 
@@ -50,7 +51,7 @@
     <span class="sec-titulo">Pedido</span>
   </div>
   <div class="lista-pedido" id="lista-pedido">
-    <p class="vacio-msg">🛒 Tocá un precio para agregar al pedido</p>
+    <p class="vacio-msg"><i class="fa-solid fa-basket-shopping"></i> Tocá un precio para agregar al pedido</p>
   </div>
 
   <!-- CAJA DE PAGO -->
@@ -62,7 +63,7 @@
       </div>
     </div>
 
-    <div class="pago-subtitulo">💵 Billetes — tocá para acumular</div>
+    <div class="pago-subtitulo"><i class="fa-solid fa-money-bill-wave"></i> Billetes — tocá para acumular</div>
     <div class="billetes-wrap">
       <button class="btn-bill" onclick="sumarPago(2000)">₲ 2K</button>
       <button class="btn-bill" onclick="sumarPago(5000)">₲ 5K</button>
@@ -71,11 +72,11 @@
       <button class="btn-bill" onclick="sumarPago(50000)">₲ 50K</button>
       <button class="btn-bill" onclick="sumarPago(100000)">₲ 100K</button>
     </div>
-    <div class="pago-subtitulo">🪙 Monedas</div>
+    <div class="pago-subtitulo"><i class="fa-solid fa-coins"></i> Monedas</div>
     <div class="monedas-wrap">
       <button class="btn-bill moneda" onclick="sumarPago(500)">₲ 500</button>
       <button class="btn-bill moneda" onclick="sumarPago(1000)">₲ 1K</button>
-      <button class="btn-bill exacto" onclick="pagoExacto()">✅ Exacto</button>
+      <button class="btn-bill exacto" onclick="pagoExacto()"><i class="fa-solid fa-check-double"></i> Exacto</button>
     </div>
 
     <div class="pago-row">
@@ -83,14 +84,14 @@
         <span class="pago-prefix">₲</span>
         <input type="number" id="pago-cliente" placeholder="0" min="0" step="1" oninput="calcularVuelto()" />
       </div>
-      <button class="btn-limpiar-pago" onclick="limpiarPago()">✕ Limpiar</button>
+      <button class="btn-limpiar-pago" onclick="limpiarPago()"><i class="fa-solid fa-xmark"></i> Limpiar</button>
     </div>
 
     <div id="vuelto-display"></div>
 
     <div class="btns-cobro">
-      <button class="btn-cobrar" onclick="cobrar()">COBRAR ✓</button>
-      <button class="btn-cancelar" onclick="cancelarPedido()">🗑 Cancelar</button>
+      <button class="btn-cobrar" onclick="cobrar()"><i class="fa-solid fa-circle-check"></i> COBRAR</button>
+      <button class="btn-cancelar" onclick="cancelarPedido()"><i class="fa-solid fa-trash-can"></i> Cancelar</button>
     </div>
   </div>
 </div>
@@ -109,15 +110,15 @@
 <div class="overlay" id="modal-precio-overlay" onclick="cerrarModalPrecio(event)">
   <div class="modal">
     <div class="modal-handle"></div>
-    <h3>➕ Agregar precio</h3>
+    <h3><i class="fa-solid fa-plus"></i> Agregar precio</h3>
     <div class="input-grupo">
       <label>Precio en guaraníes (₲)</label>
       <input type="number" class="input-field" id="mp-precio" placeholder="Ej: 2500" min="1" step="1"
         onkeydown="if(event.key==='Enter')guardarPrecioRapido()" />
     </div>
     <div class="modal-btns">
-      <button class="btn-modal-ok" onclick="guardarPrecioRapido()">Guardar</button>
-      <button class="btn-modal-cancel" onclick="cerrarModalPrecio()">Cancelar</button>
+      <button class="btn-modal-ok" onclick="guardarPrecioRapido()"><i class="fa-solid fa-floppy-disk"></i> Guardar</button>
+      <button class="btn-modal-cancel" onclick="cerrarModalPrecio()"><i class="fa-solid fa-xmark"></i> Cancelar</button>
     </div>
   </div>
 </div>
@@ -125,12 +126,12 @@
 <!-- CONFIRM CIERRE -->
 <div class="confirm-overlay" id="confirm-overlay">
   <div class="confirm-box">
-    <span class="confirm-icon">🔒</span>
+    <i class="fa-solid fa-lock confirm-icon"></i>
     <h3>Cerrar caja</h3>
     <p>Se borrará el historial del día. Asegurate de anotar los datos si los necesitás.</p>
     <div class="confirm-btns">
-      <button class="btn-confirm-si" onclick="ejecutarCierre()">Sí, cerrar</button>
-      <button class="btn-confirm-no" onclick="document.getElementById('confirm-overlay').classList.remove('visible')">Cancelar</button>
+      <button class="btn-confirm-si" onclick="ejecutarCierre()"><i class="fa-solid fa-lock"></i> Sí, cerrar</button>
+      <button class="btn-confirm-no" onclick="document.getElementById('confirm-overlay').classList.remove('visible')"><i class="fa-solid fa-xmark"></i> Cancelar</button>
     </div>
   </div>
 </div>

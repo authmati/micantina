@@ -31,16 +31,16 @@ function renderPrecios() {
   if (modoEdicion) {
     grid.innerHTML = sorted.map(p => `
       <button class="btn-precio btn-precio-editar" onclick="eliminarPrecio(${p})">
-        <span style="font-size:1.2rem">🗑️</span>
+        <i class="fa-solid fa-trash"></i>
         <span class="monto">₲ ${fmt(p)}</span>
       </button>
-    `).join('') + `<button class="btn-add-precio" onclick="abrirModalPrecio()">＋<br><small>Agregar</small></button>`;
+    `).join('') + `<button class="btn-add-precio" onclick="abrirModalPrecio()"><i class="fa-solid fa-plus"></i><br><small>Precio</small></button>`;
   } else {
     grid.innerHTML = sorted.map(p => `
       <button class="btn-precio" onclick="agregarMonto(${p})">
         <span class="monto">₲ ${fmt(p)}</span>
       </button>
-    `).join('') + `<button class="btn-add-precio" onclick="abrirModalPrecio()">＋<br><small>Precio</small></button>`;
+    `).join('') + `<button class="btn-add-precio" onclick="abrirModalPrecio()"><i class="fa-solid fa-plus"></i><br><small>Precio</small></button>`;
   }
 }
 
@@ -65,8 +65,8 @@ function cerrarModalPrecio(e) {
 
 function guardarPrecioRapido() {
   const val = parseInt(document.getElementById('mp-precio').value);
-  if (!val || val <= 0) { mostrarToast('⚠️ Ingresá un precio válido'); return; }
-  if (PRECIOS_RAPIDOS.includes(val)) { mostrarToast('⚠️ Ese precio ya existe'); return; }
+  if (!val || val <= 0) { mostrarToast('Ingresá un precio válido'); return; }
+  if (PRECIOS_RAPIDOS.includes(val)) { mostrarToast('Ese precio ya existe'); return; }
   PRECIOS_RAPIDOS.push(val);
   localStorage.setItem('cantina_precios', JSON.stringify(PRECIOS_RAPIDOS));
   renderPrecios();
@@ -93,16 +93,16 @@ function renderPedido() {
   const lista = document.getElementById('lista-pedido');
   const items = Object.values(pedido);
   if (items.length === 0) {
-    lista.innerHTML = '<p class="vacio-msg">🛒 Tocá un precio para agregar al pedido</p>';
+    lista.innerHTML = '<p class="vacio-msg"><i class="fa-solid fa-basket-shopping"></i> Tocá un precio para agregar al pedido</p>';
     totalActual = 0;
   } else {
     lista.innerHTML = items.map(p => `
       <div class="item-pedido">
         <span class="item-nom">${p.nombre}</span>
         <div class="controles">
-          <button class="btn-qty menos" onclick="cambiarQty('${p.id}', -1)">−</button>
+          <button class="btn-qty menos" onclick="cambiarQty('${p.id}', -1)"><i class="fa-solid fa-minus"></i></button>
           <span class="item-qty">${p.qty}</span>
-          <button class="btn-qty mas" onclick="cambiarQty('${p.id}', 1)">+</button>
+          <button class="btn-qty mas" onclick="cambiarQty('${p.id}', 1)"><i class="fa-solid fa-plus"></i></button>
         </div>
         <span class="item-sub">₲ ${fmt(p.precio * p.qty)}</span>
       </div>
@@ -136,16 +136,16 @@ function calcularVuelto() {
   if (pago === 0 || totalActual === 0) { div.innerHTML = ''; return; }
   const vuelto = pago - totalActual;
   if (vuelto >= 0) {
-    div.innerHTML = `<div class="vuelto-pill vuelto-ok">Vuelto: ₲ ${fmt(vuelto)} 💚</div>`;
+    div.innerHTML = `<div class="vuelto-pill vuelto-ok"><i class="fa-solid fa-circle-check"></i> Vuelto: ₲ ${fmt(vuelto)}</div>`;
   } else {
-    div.innerHTML = `<div class="vuelto-pill vuelto-falta">Faltan: ₲ ${fmt(Math.abs(vuelto))} ⚠️</div>`;
+    div.innerHTML = `<div class="vuelto-pill vuelto-falta"><i class="fa-solid fa-triangle-exclamation"></i> Faltan: ₲ ${fmt(Math.abs(vuelto))}</div>`;
   }
 }
 
 function cobrar() {
-  if (totalActual === 0) { mostrarToast('⚠️ El pedido está vacío'); return; }
+  if (totalActual === 0) { mostrarToast('El pedido está vacío'); return; }
   const pago = parseFloat(document.getElementById('pago-cliente').value) || 0;
-  if (pago > 0 && pago < totalActual) { mostrarToast('⚠️ El pago no alcanza'); return; }
+  if (pago > 0 && pago < totalActual) { mostrarToast('El pago no alcanza'); return; }
 
   const ahora = new Date();
   historial.unshift({
@@ -158,7 +158,7 @@ function cobrar() {
     items: Object.values(pedido).map(p => ({ nombre: p.nombre, qty: p.qty, precio: p.precio }))
   });
   localStorage.setItem('cantina_historial', JSON.stringify(historial));
-  mostrarToast('✅ ¡Cobrado! ₲ ' + fmt(totalActual));
+  mostrarToast('<i class="fa-solid fa-check"></i> ¡Cobrado! ₲ ' + fmt(totalActual));
   cancelarPedido();
 }
 
@@ -172,7 +172,7 @@ function cancelarPedido() {
 function renderHistorial() {
   const cont = document.getElementById('historial-contenido');
   if (historial.length === 0) {
-    cont.innerHTML = `<div class="sin-datos"><span class="icon">📋</span>No hay ventas registradas aún.</div>`;
+    cont.innerHTML = `<div class="sin-datos"><i class="fa-solid fa-clock-rotate-left icon"></i>No hay ventas registradas aún.</div>`;
     return;
   }
   const grupos = {};
@@ -207,7 +207,7 @@ function renderHistorial() {
 function renderCaja() {
   const cont = document.getElementById('caja-contenido');
   if (historial.length === 0) {
-    cont.innerHTML = `<div class="sin-datos"><span class="icon">💰</span>Sin ventas registradas.</div>
+    cont.innerHTML = `<div class="sin-datos"><i class="fa-solid fa-cash-register icon"></i>Sin ventas registradas.</div>
       <button class="btn-cierre" style="opacity:0.5" onclick="document.getElementById('confirm-overlay').classList.add('visible')">Cerrar caja</button>`;
     return;
   }
@@ -258,7 +258,7 @@ function renderCaja() {
         <div class="label">${historial.length} cobros registrados</div>
       </div>
     </div>
-    <button class="btn-cierre" onclick="document.getElementById('confirm-overlay').classList.add('visible')">🔒 Cerrar caja del día</button>
+    <button class="btn-cierre" onclick="document.getElementById('confirm-overlay').classList.add('visible')"><i class="fa-solid fa-lock"></i> Cerrar caja del día</button>
     <p style="text-align:center;font-size:0.72rem;color:var(--gris);margin-top:10px">Esto limpiará el historial para empezar un día nuevo</p>
   `;
 }
@@ -268,7 +268,7 @@ function ejecutarCierre() {
   localStorage.setItem('cantina_historial', JSON.stringify(historial));
   document.getElementById('confirm-overlay').classList.remove('visible');
   renderCaja();
-  mostrarToast('🔒 ¡Caja cerrada! Nuevo día.');
+  mostrarToast('Caja cerrada. ¡Nuevo día!');
 }
 
 // ==================== UTILS ====================

@@ -56,9 +56,10 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
   flex-shrink: 0;
   box-shadow: 0 3px 0 #cc2222;
+  color: white;
 }
 
 .titulo-wrap h1 {
@@ -93,7 +94,7 @@ body {
   letter-spacing: 0.2px;
 }
 .tab.activo { color: var(--rojo); border-bottom-color: var(--rojo); background: var(--rojo-s); }
-.tab-icon { display: block; font-size: 1.1rem; margin-bottom: 2px; }
+.tab-icon { display: block; font-size: 1rem; margin-bottom: 3px; }
 
 /* ===== PÁGINAS ===== */
 .pagina { display: none; padding: 14px; max-width: 680px; margin: 0 auto; }
@@ -231,12 +232,12 @@ body {
 
 /* ===== CAJA DE PAGO ===== */
 .pago-box {
-  background: var(--texto);
+  background: linear-gradient(160deg, #00b870 0%, #009a5a 100%);
   border-radius: 24px;
   padding: 20px;
   margin-top: 14px;
   color: white;
-  box-shadow: 0 8px 32px rgba(26,26,46,0.25);
+  box-shadow: 0 8px 32px rgba(0,160,90,0.35);
 }
 
 .total-fila {
@@ -245,7 +246,7 @@ body {
   align-items: flex-end;
   margin-bottom: 18px;
   padding-bottom: 16px;
-  border-bottom: 1px solid rgba(255,255,255,0.12);
+  border-bottom: 1px solid rgba(255,255,255,0.2);
 }
 .total-label-txt {
   font-size: 0.7rem;
@@ -260,7 +261,8 @@ body {
   font-family: 'Fredoka', cursive;
   font-size: 2.4rem;
   line-height: 1;
-  color: var(--amarillo);
+  color: white;
+  text-shadow: 0 2px 8px rgba(0,0,0,0.15);
 }
 
 /* BILLETES */
@@ -277,8 +279,8 @@ body {
 .monedas-wrap { display: grid; grid-template-columns: 1fr 1fr 2fr; gap: 6px; margin-bottom: 14px; }
 
 .btn-bill {
-  background: rgba(255,255,255,0.1);
-  border: 1.5px solid rgba(255,255,255,0.2);
+  background: rgba(255,255,255,0.18);
+  border: 1.5px solid rgba(255,255,255,0.35);
   border-radius: 10px;
   color: white;
   font-family: 'Nunito', sans-serif;
@@ -289,11 +291,11 @@ body {
   transition: all 0.12s;
   text-align: center;
 }
-.btn-bill:active { background: rgba(255,255,255,0.28); transform: scale(0.93); }
-.btn-bill.moneda { background: rgba(255,184,0,0.15); border-color: rgba(255,184,0,0.4); color: var(--amarillo); }
-.btn-bill.moneda:active { background: rgba(255,184,0,0.3); }
-.btn-bill.exacto { background: rgba(0,194,122,0.2); border-color: rgba(0,194,122,0.5); color: #4fffb8; }
-.btn-bill.exacto:active { background: rgba(0,194,122,0.4); }
+.btn-bill:active { background: rgba(255,255,255,0.38); transform: scale(0.93); }
+.btn-bill.moneda { background: rgba(255,220,50,0.22); border-color: rgba(255,220,50,0.55); color: #ffe566; }
+.btn-bill.moneda:active { background: rgba(255,220,50,0.4); }
+.btn-bill.exacto { background: rgba(255,255,255,0.25); border-color: rgba(255,255,255,0.6); color: white; font-weight: 800; }
+.btn-bill.exacto:active { background: rgba(255,255,255,0.4); }
 
 /* INPUT PAGO */
 .pago-row {
@@ -353,8 +355,8 @@ body {
 .btns-cobro { display: flex; gap: 8px; }
 .btn-cobrar {
   flex: 2;
-  background: var(--verde);
-  color: white;
+  background: white;
+  color: #009a5a;
   border: none;
   border-radius: 14px;
   padding: 15px;
@@ -363,9 +365,9 @@ body {
   letter-spacing: 0.5px;
   cursor: pointer;
   transition: all 0.15s;
-  box-shadow: 0 4px 0 #009a62;
+  box-shadow: 0 4px 0 rgba(0,0,0,0.15);
 }
-.btn-cobrar:active { transform: translateY(3px); box-shadow: 0 1px 0 #009a62; }
+.btn-cobrar:active { transform: translateY(3px); box-shadow: 0 1px 0 rgba(0,0,0,0.15); }
 
 .btn-cancelar {
   flex: 1;
@@ -613,7 +615,7 @@ body {
   text-align: center;
   box-shadow: var(--sombra2);
 }
-.confirm-icon { font-size: 2.5rem; margin-bottom: 10px; display: block; }
+.confirm-icon { font-size: 2.2rem; margin-bottom: 10px; display: block; color: var(--rojo); }
 .confirm-box h3 { font-family: 'Fredoka', cursive; font-size: 1.2rem; margin-bottom: 8px; }
 .confirm-box p { color: var(--gris2); font-size: 0.88rem; margin-bottom: 20px; line-height: 1.5; }
 .confirm-btns { display: flex; gap: 8px; }
@@ -656,7 +658,7 @@ body {
   font-size: 0.9rem;
   font-weight: 600;
 }
-.sin-datos .icon { font-size: 3rem; display: block; margin-bottom: 10px; }
+.sin-datos .icon { font-size: 2.5rem; display: block; margin-bottom: 10px; color: var(--gris); }
 
 /* ANIMACIONES */
 @keyframes slideIn { from { opacity:0; transform: translateX(-8px); } to { opacity:1; transform: none; } }
