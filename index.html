@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<title>Cantina Escolar</title>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#fff9f0">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="default">
+<meta name="apple-mobile-web-app-title" content="Cantina">
+<link rel="apple-touch-icon" href="icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fredoka:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+</head>
+<body>
+
+<!-- HEADER + TABS -->
+<div class="header">
+  <div class="header-top">
+    <div class="logo">🏪</div>
+    <div class="titulo-wrap">
+      <h1>Mi Cantina</h1>
+      <p>SISTEMA DE COBROS</p>
+    </div>
+  </div>
+  <div class="tabs">
+    <div class="tab activo" onclick="irA('cobro')">
+      <span class="tab-icon">🛒</span>Cobrar
+    </div>
+    <div class="tab" onclick="irA('historial')">
+      <span class="tab-icon">📋</span>Historial
+    </div>
+    <div class="tab" onclick="irA('caja')">
+      <span class="tab-icon">💰</span>Caja
+    </div>
+  </div>
+</div>
+
+<!-- COBRO -->
+<div class="pagina activa" id="pag-cobro">
+
+  <div class="sec-header">
+    <span class="sec-titulo">Precios rápidos</span>
+    <button class="btn-editar-toggle" id="btn-editar-precios" onclick="toggleEditarPrecios()">✏️ Editar</button>
+  </div>
+  <div class="precios-grid" id="precios-grid"></div>
+
+  <div class="sec-header">
+    <span class="sec-titulo">Pedido</span>
+  </div>
+  <div class="lista-pedido" id="lista-pedido">
+    <p class="vacio-msg">🛒 Tocá un precio para agregar al pedido</p>
+  </div>
+
+  <!-- CAJA DE PAGO -->
+  <div class="pago-box">
+    <div class="total-fila">
+      <div>
+        <span class="total-label-txt">Total a cobrar</span>
+        <div class="total-num" id="total-display">₲ 0</div>
+      </div>
+    </div>
+
+    <div class="pago-subtitulo">💵 Billetes — tocá para acumular</div>
+    <div class="billetes-wrap">
+      <button class="btn-bill" onclick="sumarPago(2000)">₲ 2K</button>
+      <button class="btn-bill" onclick="sumarPago(5000)">₲ 5K</button>
+      <button class="btn-bill" onclick="sumarPago(10000)">₲ 10K</button>
+      <button class="btn-bill" onclick="sumarPago(20000)">₲ 20K</button>
+      <button class="btn-bill" onclick="sumarPago(50000)">₲ 50K</button>
+      <button class="btn-bill" onclick="sumarPago(100000)">₲ 100K</button>
+    </div>
+    <div class="pago-subtitulo">🪙 Monedas</div>
+    <div class="monedas-wrap">
+      <button class="btn-bill moneda" onclick="sumarPago(500)">₲ 500</button>
+      <button class="btn-bill moneda" onclick="sumarPago(1000)">₲ 1K</button>
+      <button class="btn-bill exacto" onclick="pagoExacto()">✅ Exacto</button>
+    </div>
+
+    <div class="pago-row">
+      <div class="pago-input-wrap">
+        <span class="pago-prefix">₲</span>
+        <input type="number" id="pago-cliente" placeholder="0" min="0" step="1" oninput="calcularVuelto()" />
+      </div>
+      <button class="btn-limpiar-pago" onclick="limpiarPago()">✕ Limpiar</button>
+    </div>
+
+    <div id="vuelto-display"></div>
+
+    <div class="btns-cobro">
+      <button class="btn-cobrar" onclick="cobrar()">COBRAR ✓</button>
+      <button class="btn-cancelar" onclick="cancelarPedido()">🗑 Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- HISTORIAL -->
+<div class="pagina" id="pag-historial">
+  <div id="historial-contenido"></div>
+</div>
+
+<!-- CAJA -->
+<div class="pagina" id="pag-caja">
+  <div id="caja-contenido"></div>
+</div>
+
+<!-- MODAL PRECIO -->
+<div class="overlay" id="modal-precio-overlay" onclick="cerrarModalPrecio(event)">
+  <div class="modal">
+    <div class="modal-handle"></div>
+    <h3>➕ Agregar precio</h3>
+    <div class="input-grupo">
+      <label>Precio en guaraníes (₲)</label>
+      <input type="number" class="input-field" id="mp-precio" placeholder="Ej: 2500" min="1" step="1"
+        onkeydown="if(event.key==='Enter')guardarPrecioRapido()" />
+    </div>
+    <div class="modal-btns">
+      <button class="btn-modal-ok" onclick="guardarPrecioRapido()">Guardar</button>
+      <button class="btn-modal-cancel" onclick="cerrarModalPrecio()">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<!-- CONFIRM CIERRE -->
+<div class="confirm-overlay" id="confirm-overlay">
+  <div class="confirm-box">
+    <span class="confirm-icon">🔒</span>
+    <h3>Cerrar caja</h3>
+    <p>Se borrará el historial del día. Asegurate de anotar los datos si los necesitás.</p>
+    <div class="confirm-btns">
+      <button class="btn-confirm-si" onclick="ejecutarCierre()">Sí, cerrar</button>
+      <button class="btn-confirm-no" onclick="document.getElementById('confirm-overlay').classList.remove('visible')">Cancelar</button>
+    </div>
+  </div>
+</div>
+
+<div class="toast" id="toast"></div>
+
+
+<script src="app.js"></script>
+<script src="sw-register.js"></script>
+</body>
+</html>
