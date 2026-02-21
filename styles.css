@@ -305,3 +305,76 @@ body {
 
 @keyframes slideIn { from { opacity:0; transform: translateX(-8px); } to { opacity:1; transform: none; } }
 @keyframes wiggle { from { transform: rotate(-2deg) scale(0.97); } to { transform: rotate(2deg) scale(1.03); } }
+
+/* ===== COLORES EXPLÍCITOS PARA ICONOS FA ===== */
+
+/* Tabs - íconos blancos sobre fondo azul */
+.tab .tab-icon { color: rgba(255,255,255,0.6); }
+.tab.activo .tab-icon { color: white; }
+
+/* Logo */
+.logo i { color: white; }
+
+/* Botón editar toggle */
+.btn-editar-toggle i { color: var(--gris2); }
+.btn-editar-toggle.activo i { color: var(--rojo); }
+
+/* Sección pago - subtítulos con íconos */
+.pago-subtitulo i { color: rgba(255,255,255,0.7); }
+
+/* Botón exacto */
+.btn-bill.exacto i { color: white; }
+
+/* Botón limpiar */
+.btn-limpiar-pago i { color: #fca5a5; }
+
+/* Botón cobrar - ícono verde oscuro */
+.btn-cobrar i { color: #059669; }
+
+/* Botón cancelar */
+.btn-cancelar i { color: #fca5a5; }
+
+/* Modal */
+.modal h3 i { color: var(--azul); }
+.btn-modal-ok i { color: white; }
+.btn-modal-cancel i { color: var(--gris2); }
+
+/* Confirm */
+.confirm-icon { color: var(--rojo) !important; }
+.btn-confirm-si i { color: white; }
+.btn-confirm-no i { color: var(--gris2); }
+
+/* Vuelto */
+.vuelto-ok i { color: #6ee7b7; }
+.vuelto-falta i { color: #fca5a5; }
+
+/* Vacío / sin datos */
+.vacio-msg i { color: var(--azul-light); }
+.sin-datos .icon { color: var(--azul-light) !important; }
+
+/* Caja - card-titulo */
+.card-titulo i { color: var(--gris); }
+
+/* Top rank medalla */
+.top-rank.gold i { color: var(--amarillo); }
+
+/* Fecha chip */
+.fecha-chip i { color: white; }
+
+/* Btn cierre */
+.btn-cierre i { color: white; }
+
+/* Toast */
+.toast i { color: white; }
+
+/* Precios - botón eliminar */
+.btn-precio-editar i { color: var(--rojo); }
+
+/* Btn add precio */
+.btn-add-precio i { color: var(--azul-med); }
+
+/* Btn qty */
+.btn-qty.menos i { color: var(--rojo); }
+.btn-qty.menos:active i { color: white; }
+.btn-qty.mas i { color: var(--azul); }
+.btn-qty.mas:active i { color: white; }

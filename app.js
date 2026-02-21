@@ -20,7 +20,9 @@ function irA(pagina) {
 function toggleEditarPrecios() {
   modoEdicion = !modoEdicion;
   const btn = document.getElementById('btn-editar-precios');
-  btn.textContent = modoEdicion ? '✅ Listo' : '✏️ Editar';
+  btn.innerHTML = modoEdicion
+    ? '<i class="fa-solid fa-check"></i> Listo'
+    : '<i class="fa-solid fa-pen-to-square"></i> Editar';
   btn.classList.toggle('activo', modoEdicion);
   renderPrecios();
 }
@@ -49,7 +51,7 @@ function eliminarPrecio(precio) {
   localStorage.setItem('cantina_precios', JSON.stringify(PRECIOS_RAPIDOS));
   if (PRECIOS_RAPIDOS.length === 0) { modoEdicion = false; document.getElementById('btn-editar-precios').classList.remove('activo'); }
   renderPrecios();
-  mostrarToast('🗑️ ₲ ' + fmt(precio) + ' eliminado');
+  mostrarToast('<i class="fa-solid fa-trash"></i> ₲ ' + fmt(precio) + ' eliminado');
 }
 
 function abrirModalPrecio() {
@@ -65,13 +67,13 @@ function cerrarModalPrecio(e) {
 
 function guardarPrecioRapido() {
   const val = parseInt(document.getElementById('mp-precio').value);
-  if (!val || val <= 0) { mostrarToast('Ingresá un precio válido'); return; }
-  if (PRECIOS_RAPIDOS.includes(val)) { mostrarToast('Ese precio ya existe'); return; }
+  if (!val || val <= 0) { mostrarToast('<i class="fa-solid fa-triangle-exclamation"></i> Ingresá un precio válido'); return; }
+  if (PRECIOS_RAPIDOS.includes(val)) { mostrarToast('<i class="fa-solid fa-triangle-exclamation"></i> Ese precio ya existe'); return; }
   PRECIOS_RAPIDOS.push(val);
   localStorage.setItem('cantina_precios', JSON.stringify(PRECIOS_RAPIDOS));
   renderPrecios();
   cerrarModalPrecio();
-  mostrarToast('✅ ₲ ' + fmt(val) + ' agregado');
+  mostrarToast('<i class="fa-solid fa-circle-check"></i> ₲ ' + fmt(val) + ' agregado');
 }
 
 // ==================== PEDIDO ====================
@@ -143,9 +145,9 @@ function calcularVuelto() {
 }
 
 function cobrar() {
-  if (totalActual === 0) { mostrarToast('El pedido está vacío'); return; }
+  if (totalActual === 0) { mostrarToast('<i class="fa-solid fa-triangle-exclamation"></i> El pedido está vacío'); return; }
   const pago = parseFloat(document.getElementById('pago-cliente').value) || 0;
-  if (pago > 0 && pago < totalActual) { mostrarToast('El pago no alcanza'); return; }
+  if (pago > 0 && pago < totalActual) { mostrarToast('<i class="fa-solid fa-triangle-exclamation"></i> El pago no alcanza'); return; }
 
   const ahora = new Date();
   historial.unshift({
@@ -158,7 +160,7 @@ function cobrar() {
     items: Object.values(pedido).map(p => ({ nombre: p.nombre, qty: p.qty, precio: p.precio }))
   });
   localStorage.setItem('cantina_historial', JSON.stringify(historial));
-  mostrarToast('<i class="fa-solid fa-check"></i> ¡Cobrado! ₲ ' + fmt(totalActual));
+  mostrarToast('<i class="fa-solid fa-circle-check"></i> ¡Cobrado! ₲ ' + fmt(totalActual));
   cancelarPedido();
 }
 
@@ -184,7 +186,7 @@ function renderHistorial() {
     const sub = g.ventas.reduce((s, v) => s + v.total, 0);
     return `
       <div class="dia-header" style="margin-top:16px">
-        <div class="fecha-chip">📅 ${g.label}</div>
+        <div class="fecha-chip"><i class="fa-regular fa-calendar"></i> ${g.label}</div>
         <span class="dia-subtotal">₲ ${fmt(sub)} · ${g.ventas.length} cobros</span>
       </div>
       ${g.ventas.map(v => `
@@ -208,7 +210,7 @@ function renderCaja() {
   const cont = document.getElementById('caja-contenido');
   if (historial.length === 0) {
     cont.innerHTML = `<div class="sin-datos"><i class="fa-solid fa-cash-register icon"></i>Sin ventas registradas.</div>
-      <button class="btn-cierre" style="opacity:0.5" onclick="document.getElementById('confirm-overlay').classList.add('visible')">Cerrar caja</button>`;
+      <button class="btn-cierre" style="opacity:0.5" onclick="document.getElementById('confirm-overlay').classList.add('visible')"><i class="fa-solid fa-lock"></i> Cerrar caja</button>`;
     return;
   }
   const hoy = new Date().toISOString().split('T')[0];
@@ -229,7 +231,7 @@ function renderCaja() {
   cont.innerHTML = `
     <div style="margin-top:14px"></div>
     <div class="resumen-card">
-      <div class="card-titulo">📅 Hoy</div>
+      <div class="card-titulo"><i class="fa-regular fa-calendar-days"></i> Hoy</div>
       <div class="stat-hero">
         <div class="num">₲ ${fmt(totalDia)}</div>
         <div class="label">Total recaudado hoy</div>
@@ -241,10 +243,10 @@ function renderCaja() {
     </div>
     ${top.length > 0 ? `
     <div class="resumen-card">
-      <div class="card-titulo">🏆 Más cobrados hoy</div>
+      <div class="card-titulo"><i class="fa-solid fa-trophy"></i> Más cobrados hoy</div>
       ${top.map((p, i) => `
         <div class="top-item">
-          <div class="top-rank ${i===0?'gold':''}">${i===0?'🥇':`#${i+1}`}</div>
+          <div class="top-rank ${i===0?'gold':''}">${i===0?'<i class="fa-solid fa-medal"></i>':`#${i+1}`}</div>
           <span class="top-nom">${p.nombre}</span>
           <span class="top-cant">${p.qty} veces</span>
           <span class="top-monto">₲ ${fmt(p.monto)}</span>
@@ -252,7 +254,7 @@ function renderCaja() {
       `).join('')}
     </div>` : ''}
     <div class="resumen-card">
-      <div class="card-titulo">📊 Acumulado total</div>
+      <div class="card-titulo"><i class="fa-solid fa-chart-bar"></i> Acumulado total</div>
       <div class="stat-hero">
         <div class="num">₲ ${fmt(totalGral)}</div>
         <div class="label">${historial.length} cobros registrados</div>
@@ -268,7 +270,7 @@ function ejecutarCierre() {
   localStorage.setItem('cantina_historial', JSON.stringify(historial));
   document.getElementById('confirm-overlay').classList.remove('visible');
   renderCaja();
-  mostrarToast('Caja cerrada. ¡Nuevo día!');
+  mostrarToast('<i class="fa-solid fa-lock"></i> Caja cerrada. ¡Nuevo día!');
 }
 
 // ==================== UTILS ====================
@@ -276,7 +278,7 @@ function fmt(n) { return Math.round(n).toLocaleString('es-PY'); }
 
 function mostrarToast(msg) {
   const t = document.getElementById('toast');
-  t.textContent = msg;
+  t.innerHTML = msg;
   t.classList.add('visible');
   setTimeout(() => t.classList.remove('visible'), 2200);
 }
