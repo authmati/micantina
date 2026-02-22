@@ -1,7 +1,10 @@
-const CACHE_NAME = 'cantina-v1';
+const CACHE_NAME = 'cantina-v2';
 const ARCHIVOS = [
+  './',
   './cantina.html',
-  './manifest.json'
+  './manifest.json',
+  './app.js',
+  './styles.css'
 ];
 
 // Instalación: cachear archivos
