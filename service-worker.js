@@ -1,6 +1,5 @@
-const CACHE_NAME = 'cantina-v2';
+const CACHE_NAME = 'cantina-v3';
 const ARCHIVOS = [
-  './',
   './cantina.html',
   './manifest.json',
   './app.js',
